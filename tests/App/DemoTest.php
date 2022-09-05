@@ -30,7 +30,7 @@ class DemoTest extends TestCase {
         $this->_req = $req;
     }
 
-    public function test_foo()
+    public function test_foo1()
     {
         return "bar";
     }

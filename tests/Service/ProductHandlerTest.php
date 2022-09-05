@@ -55,6 +55,48 @@ class ProductHandlerTest extends TestCase
         ],
     ];
 
+
+    /**
+     * 计算商品总金额
+     */
+    public function testCountMoney()
+    {
+        $totalMoney = array_sum(array_column($this->products, 'price'));
+        return $totalMoney; #143
+    }
+
+
+    /**
+     * 商品金额排序（由大至小），并且返回类型为“dessert” 的商品
+     */
+    public function testSortMoney()
+    {
+        #排序
+        $goodsLists = $this->products;
+        array_multisort(array_column($goodsLists, 'price'), SORT_DESC, $goodsLists);
+
+        foreach ($goodsLists as $k => $v) {
+            if ($v['type'] != 'Dessert') {
+                unset($goodsLists[$k]);
+            }
+        }
+        return $goodsLists;
+    }
+
+
+    /**
+     * 转换时间日期类型(unix timestamp)
+     */
+    public function testChangeTimeType()
+    {
+        foreach ($this->products as &$v) {
+            $v['create_at'] = strtotime($v['create_at']);
+        }
+        return $this->products;
+    }
+
+
+
     public function testGetTotalPrice()
     {
         $totalPrice = 0;
